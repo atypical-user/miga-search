@@ -6,13 +6,17 @@ import com.google.gson.JsonParser
 import com.google.gson.JsonPrimitive
 import org.jsoup.Jsoup
 import org.mozilla.javascript.Context
+import org.slf4j.LoggerFactory
 
 class VideoIdExtractor {
+
+    private val log = LoggerFactory.getLogger(VideoIdExtractor::class.java)
+
     fun extractVideoIdsFrom(html: String): List<String> {
         val document = Jsoup.parse(html)
         val scriptElements = document.head().getElementsByTag("script")
 
-        println("Found ${scriptElements.size} script elements")
+        log.debug("Found {} script elements", scriptElements.size)
         val result = ArrayList<String>()
         for (element in scriptElements) {
             val data = element.html()
@@ -21,7 +25,7 @@ class VideoIdExtractor {
                 handleObject(jsonObject, result)
             }
         }
-        println("Found ${result.size} video ids")
+        log.debug("Found {} video ids", result.size)
         return result
     }
 
@@ -38,7 +42,7 @@ class VideoIdExtractor {
 
             // Convert them to Java types if needed
             val jsonString = cx.evaluateString(scope, "JSON.stringify(ytInitialData)", "script", 1, null)
-            println("Serialized object: " + Context.toString(jsonString))
+            log.debug("Serialized object: {}", Context.toString(jsonString))
             result = Context.toString(jsonString)
         } catch (ex: Exception) {
             ex.printStackTrace()

@@ -1,6 +1,6 @@
 package io.miga.youtube.extractor
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import uk.org.webcompere.testgadgets.testdatafactory.TestData
 import uk.org.webcompere.testgadgets.testdatafactory.TestDataFactory
@@ -10,8 +10,8 @@ class VideoIdExtractorTest {
 
     private val extractor = VideoIdExtractor()
 
-    @TestData("youtube_start_page.html")
-    lateinit var testData: String
+    @TestData("youtube_start_page.html.txt")
+    lateinit var startPageHtml: String
 
     @Test
     fun `should extract video ids from html string`() {
@@ -56,7 +56,7 @@ class VideoIdExtractorTest {
     @Test
     fun `should extract videosId from html file`() {
         // When
-        val result = extractor.extractVideoIdsFrom(testData)
+        val result = extractor.extractVideoIdsFrom(startPageHtml)
 
         // Then
         assertEquals(41, result.size)
