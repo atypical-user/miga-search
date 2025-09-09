@@ -9,8 +9,6 @@ import uk.org.webcompere.testgadgets.testdatafactory.TestDataFactory
 @TestDataFactory
 class VideoMetaDataExtractorTest {
 
-    private val extractor = VideoMetaDataExtractor()
-
     @TestData("youtube_video_page.html.txt")
     lateinit var videoPageHtml: String
 
@@ -19,15 +17,15 @@ class VideoMetaDataExtractorTest {
         // Given
 
         // When
-        val videoMetaData = extractor.extractMetaData(videoPageHtml)
+        val videoMetaData = VideoMetaDataExtractor.extractMetaData(videoPageHtml)
 
         // Then
         assertNotNull(videoMetaData)
-        assertEquals("Fehler beim WANDERN (und wie du sie vermeiden kannst)", videoMetaData.videoTitle)
-        assertEquals("ne5eoNqCxVE", videoMetaData.videoId)
-        assertNotNull(videoMetaData.videoAuthor)
-        assertEquals("Stefan Berger", videoMetaData.videoAuthor.name)
-        assertEquals("bergerstefan", videoMetaData.videoAuthor.handle)
+        assertEquals("Fehler beim WANDERN (und wie du sie vermeiden kannst)", videoMetaData.title)
+        assertEquals("ne5eoNqCxVE", videoMetaData.id)
+        assertNotNull(videoMetaData.author)
+        assertEquals("Stefan Berger", videoMetaData.author.name)
+        assertEquals("bergerstefan", videoMetaData.author.handle)
     }
 
     @Test
@@ -45,7 +43,7 @@ class VideoMetaDataExtractorTest {
         // When
         var exception: Exception? = null
         try {
-            extractor.extractMetaData(html)
+            VideoMetaDataExtractor.extractMetaData(html)
         } catch (e: Exception) {
             exception = e
         }

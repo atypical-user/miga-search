@@ -1,9 +1,14 @@
+networks:
+  miga-search:
+    driver: bridge
+
 services:
-  db:
-    image: mongo:latest
-    restart: always
+  postgresql:
+    image: bitnami/postgresql:latest
+    networks:
+      - miga-search
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      POSTGRESQL_PASSWORD: password
+      POSTGRESQL_POSTGRES_PASSWORD: password
     ports:
-      - 27017:27017
+      - 5432:5432

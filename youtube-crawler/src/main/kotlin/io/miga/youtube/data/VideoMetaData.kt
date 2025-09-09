@@ -3,11 +3,11 @@ package io.miga.youtube.data
 import java.time.Instant
 
 data class VideoMetaData(
-    val videoId: String,
-    val videoTitle: String,
-    val videoDescription: String,
-    val videoAuthor: VideoMetaDataAuthor,
-    val videoDuration: String,
+    val id: String,
+    val title: String,
+    val description: String,
+    val author: VideoMetaDataAuthor,
+    val duration: String,
     val uploadDate: Instant,
     val publishDate: Instant,
 )

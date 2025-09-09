@@ -8,8 +8,6 @@ import uk.org.webcompere.testgadgets.testdatafactory.TestDataFactory
 @TestDataFactory
 class VideoIdExtractorTest {
 
-    private val extractor = VideoIdExtractor()
-
     @TestData("youtube_start_page.html.txt")
     lateinit var startPageHtml: String
 
@@ -42,7 +40,7 @@ class VideoIdExtractorTest {
         """.trimIndent()
 
         // When
-        val result = extractor.extractVideoIdsFrom(html)
+        val result = VideoIdExtractor.extractVideoIdsFrom(html)
 
         // Then
         assertEquals(4, result.size)
@@ -56,7 +54,7 @@ class VideoIdExtractorTest {
     @Test
     fun `should extract videosId from html file`() {
         // When
-        val result = extractor.extractVideoIdsFrom(startPageHtml)
+        val result = VideoIdExtractor.extractVideoIdsFrom(startPageHtml)
 
         // Then
         assertEquals(41, result.size)
